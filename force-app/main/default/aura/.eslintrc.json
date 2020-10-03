@@ -1,9 +1,4 @@
 {
   "plugins": ["@salesforce/eslint-plugin-aura"],
-  "extends": ["plugin:@salesforce/eslint-plugin-aura/recommended", "prettier"],
-  "rules": {
-    "func-names": "off",
-    "vars-on-top": "off",
-    "no-unused-expressions": "off"
-  }
+  "extends": ["plugin:@salesforce/eslint-plugin-aura/recommended", "prettier"]
 }
