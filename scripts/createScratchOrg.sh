@@ -23,6 +23,8 @@ execute sfdx force:source:push
 echo "Running apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests -w 30
 
+echo "Assigning permission"
+execute sfdx force:user:permset:assign -n Admin
 
 echo "setup sample data"
 sfdx force:apex:execute -f ./scripts/prepareData.apex
