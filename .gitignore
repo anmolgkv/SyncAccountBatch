@@ -1,1 +1,6 @@
 .sfdx/
+*.iml
+api/target/
+api/.classpath
+api/.project
+api/.settings/
