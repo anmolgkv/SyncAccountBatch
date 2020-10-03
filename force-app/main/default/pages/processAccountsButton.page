@@ -1,0 +1,28 @@
+<apex:page standardController="Account" extensions="ProcessAccountsCtrlExt" tabStyle="Account" recordSetVar="accounts">
+
+    <apex:includeLightning />
+
+    <div id="processAccounts" class="processAccounts"/>
+
+    <apex:form >
+        <apex:actionFunction action="{!redirectToList}" name="close" />
+    </apex:form>
+    
+    <script>
+        $Lightning.use("c:copado", () => {
+            const recordIds = {!recordIds};
+            $Lightning.createComponent("c:processAccounts", {recordIds}, "processAccounts");
+        });
+
+        document.addEventListener("showToast", (event) => {
+            sforce.one.showToast(event.detail);
+        });
+
+        document.addEventListener("close", () => close());
+    </script>
+    <style>
+        .processAccounts {
+            min-height: 80vh;
+        }
+    </style>
+</apex:page>
