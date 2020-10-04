@@ -1,33 +1,34 @@
 package com.copado.api.model;
 
-public class Response {
-    private String status;
-    private String message;
+import java.util.List;
 
-    public Response() {}
+public class Response {
+
+    private String status;
+    private List<Account> accounts;
+
+
+    // CONSTRUCTOR
 
     public Response(String status) {
         this.status = status;
     }
 
-    public Response(String status, String message) {
+
+    public Response(String status, List<Account> accounts) {
         this.status = status;
-        this.message = message;
+        this.accounts = accounts;
     }
+
+
+    // PUBLIC
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String error) {
-        this.message = error;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }

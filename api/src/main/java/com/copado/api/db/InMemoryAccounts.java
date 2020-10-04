@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository("In Memory")
+@Repository
 public class InMemoryAccounts {
 
     private static Map<String, List<Account>> accountsByTaskId = new HashMap<>();
@@ -38,6 +38,8 @@ public class InMemoryAccounts {
         return  (accountsByTaskId.containsKey(taskId) && !accountsByTaskId.get(taskId).isEmpty());
     }
 
+
+    // PRIVATE
 
     private void addOrUpdate(String taskId, Account account) {
 
