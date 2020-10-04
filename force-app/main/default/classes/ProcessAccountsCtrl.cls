@@ -8,7 +8,7 @@ public with sharing class ProcessAccountsCtrl {
             new BackendApi().sendAccounts(accounts, true);
             
             return new BackendApi().process();
-        } catch (ffhttp_AppException ex) {
+        } catch (Exception ex) {
             throw new AuraHandledException(ex.getMessage());
         }
     }

@@ -17,8 +17,32 @@ private class ProcessAccountsCtrl_Test {
 
         
         // Then
-        account = [Select SyncMessage__c From Account];
-        System.assertEquals('Looks good', account.SyncMessage__c);
+        System.assertEquals('Looks good', [Select SyncMessage__c From Account].SyncMessage__c);
+    }
+
+
+    @IsTest
+    private static void processFailsWithoutAccount() {
+        // Given
+        Exception expectedException = null;
+        new HttpMock().post('/batch', new CalloutException())
+            		  .mock();
+
+        
+        // When
+        try {
+            Test.startTest();
+                ProcessAccountsCtrl.process(new List<Id> ());
+            Test.stopTest();
+        } catch (AuraHandledException ex) {
+            expectedException = ex;
+        } finally {
+            
+        }
+
+        
+        // Then
+        System.assertNotEquals(null, expectedException);
     }
 
 
