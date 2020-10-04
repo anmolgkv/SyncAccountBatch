@@ -23,7 +23,6 @@ export default class UpdateAccounts extends LightningElement {
         {label: "Message", fieldName: "message"}
     ];
 
-    processedMessage;
 
     showProcessResult = false;
     isLoading = true;
@@ -42,7 +41,8 @@ export default class UpdateAccounts extends LightningElement {
 
 
     get accounts() {
-        const accounts = JSON.parse(this.response.message);    
+        const accounts = this.response.accounts || [];
+
         return accounts.map((account) => {
             return {
                 ...account,
@@ -71,7 +71,7 @@ export default class UpdateAccounts extends LightningElement {
         this.isLoading = true;
 
         try {
-            this.response = await process({accountIds});
+            this.response = await process({ accountIds });
             this.showProcessResult = true;
         } catch (error) {
             this.showToast("error", error.body.exceptionType, error.body.message);

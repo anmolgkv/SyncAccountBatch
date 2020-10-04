@@ -560,14 +560,13 @@ public with sharing class ffhttp_Client
 
 			validateRequest(request);
 
-System.debug(request.getBody());
 			HttpResponse response = new Http().send(request);
 			Integer statusCode = response.getStatusCode();
-			String status = response.getStatus();
-System.debug(response.getBody());
+			String body = response.getBody();
+
 			if (statusCode >= HTTP_STATUS_CODE_ERROR_BAD_REQUEST)
 			{
-				throw new ffhttp_AppException(statusCode, status);
+				throw new ffhttp_AppException(statusCode, body);
 			}
 
 			if (statusCode >= HTTP_STATUS_CODE_REDIRECTION_MULTIPLE_CHOICES && statusCode < HTTP_STATUS_CODE_ERROR_BAD_REQUEST)

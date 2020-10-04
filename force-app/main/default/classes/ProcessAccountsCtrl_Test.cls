@@ -3,20 +3,20 @@ private class ProcessAccountsCtrl_Test {
     
     @IsTest
     private static void process() {
-        // Setup
+        // Given
         Account account = (Account) new Account_t().persist();
         new HttpMock().post('/batch', new BackendApi.Response('success'))
                       .post('/process', new BackendApi.Response('success', accountResponse(account)))
             		  .mock();
 
         
-        // Exercise
+        // When
         Test.startTest();
             ProcessAccountsCtrl.process(new List<Id> { account.Id });
 		Test.stopTest();
 
         
-        // Verify
+        // Then
         account = [Select SyncMessage__c From Account];
         System.assertEquals('Looks good', account.SyncMessage__c);
     }
@@ -24,12 +24,12 @@ private class ProcessAccountsCtrl_Test {
 
     // Helper
     
-    private static String accountResponse(Account account) {
+    private static List<BackendApi.AccountResponse> accountResponse(Account account) {
         BackendApi.AccountResponse result = new BackendApi.AccountResponse();
         result.id = account.Id;
         result.name = account.Name;
         result.message = 'Looks good';
 
-        return JSON.serialize(new List<BackendApi.AccountResponse> { result });
+        return new List<BackendApi.AccountResponse> { result };
     }
 }

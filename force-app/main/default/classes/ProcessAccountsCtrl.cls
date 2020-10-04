@@ -2,13 +2,14 @@ public with sharing class ProcessAccountsCtrl {
     
     @AuraEnabled
     public static BackendApi.Response process(List<Id> accountIds) {
-        List<Account> accounts = new AccountsSelector().byId(new Set<Id>(accountIds));        
-        BackendApi.Response syncResponse = new BackendApi().sendAccounts(accounts, true);
-
-        if(!syncResponse.isSuccess()) {
-            throw new AuraHandledException(syncResponse.message);
+        List<Account> accounts = new AccountsSelector().byId(new Set<Id>(accountIds)); 
+        
+        try {
+            new BackendApi().sendAccounts(accounts, true);
+            
+            return new BackendApi().process();
+        } catch (ffhttp_AppException ex) {
+            throw new AuraHandledException(ex.getMessage());
         }
-
-        return new BackendApi().process();
     }
 }

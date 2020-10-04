@@ -20,6 +20,7 @@ import java.util.List;
 
 import static com.copado.api.controller.helper.Random.string;
 import static com.copado.api.controller.helper.ResponseBodyMatchers.responseBody;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +43,7 @@ public class AccountBatchControllerTest {
 
         // Setup
         Response successResponse = new Response("success");
-        when(controller.addPerson(Mockito.any(BatchRequest.class), false)).thenReturn(successResponse);
+        when(controller.addPerson(Mockito.any(BatchRequest.class), eq(false))).thenReturn(successResponse);
         BatchRequest body = new BatchRequest(string(18), string(18), accounts(1));
 
 
@@ -61,7 +62,7 @@ public class AccountBatchControllerTest {
 
         // Setup
         Response successResponse = new Response("success");
-        when(controller.addPerson(Mockito.any(BatchRequest.class), false)).thenReturn(successResponse);
+        when(controller.addPerson(Mockito.any(BatchRequest.class), eq(false))).thenReturn(successResponse);
         BatchRequest body = new BatchRequest("", string(18), accounts(1));
 
 
@@ -78,7 +79,7 @@ public class AccountBatchControllerTest {
 
         // Setup
         Response successResponse = new Response("success");
-        when(controller.addPerson(Mockito.any(BatchRequest.class), false)).thenReturn(successResponse);
+        when(controller.addPerson(Mockito.any(BatchRequest.class), eq(false))).thenReturn(successResponse);
         BatchRequest body = new BatchRequest(string(18), "", accounts(1));
 
 
@@ -95,7 +96,7 @@ public class AccountBatchControllerTest {
 
         // Setup
         Response successResponse = new Response("success");
-        when(controller.addPerson(Mockito.any(BatchRequest.class), false)).thenReturn(successResponse);
+        when(controller.addPerson(Mockito.any(BatchRequest.class), eq(false))).thenReturn(successResponse);
         BatchRequest body = new BatchRequest(string(18), string(18), accounts(0));
 
 

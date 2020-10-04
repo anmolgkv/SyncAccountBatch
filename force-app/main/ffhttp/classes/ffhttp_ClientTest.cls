@@ -606,7 +606,7 @@ private class ffhttp_ClientTest
 		public HttpResponse respond(HTTPRequest req)
 		{
 			HttpResponse res = new HttpResponse();
-			res.setStatus('Invalid Request');
+			res.setBody('Invalid Request');
 			res.setStatusCode(ffhttp_Client.HTTP_STATUS_CODE_ERROR_BAD_REQUEST);
 			return res;
 		}

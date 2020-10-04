@@ -2,10 +2,10 @@ package com.copado.api.service;
 
 import com.copado.api.db.InMemoryAccounts;
 import com.copado.api.model.Account;
+import com.copado.api.model.Response;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 
 public class AccountServiceTest {
@@ -16,21 +16,15 @@ public class AccountServiceTest {
     public void whenGoodAccount_thenSucceed() throws Exception {
 
         // Setup
-        Exception expectedException = null;
         service.addAccount("taskId", new Account("id", "Good Account", "New"));
 
 
         // Exercise
-        try {
-            service.process("taskId");
-        }
-        catch(Exception ex) {
-            expectedException = ex;
-        }
+        Response response = service.process("taskId");
 
 
         // Verify
-        assertEquals(null, expectedException);
+        assertEquals("success", response.getStatus());
     }
 
 
@@ -38,20 +32,14 @@ public class AccountServiceTest {
     public void whenFakeAccount_thenFail() throws Exception {
 
         // Setup
-        Exception expectedException = null;
         service.addAccount("taskId", new Account("id", "Fake Account", "New"));
 
 
         // Exercise
-        try {
-            service.process("taskId");
-        }
-        catch(Exception ex) {
-            expectedException = ex;
-        }
+        Response response = service.process("taskId");
 
 
         // Verify
-        assertNotEquals(null, expectedException);
+        assertEquals("error", response.getStatus());
     }
 }

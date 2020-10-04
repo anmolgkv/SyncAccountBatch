@@ -4,17 +4,17 @@ private class ProcessAccountsCtrlExt_Test {
     @IsTest
     private static void redirectToList() {
 
-        // Setup
+        // Given
         Account account = (Account) new Account_t().persist();
 
         ApexPages.StandardSetController ctrl = new ApexPages.StandardSetController( new List<Account>{ account } );
 
 
-        // Exercise
+        // When
         new ProcessAccountsCtrlExt(ctrl).redirectToList();
         
         
-        // Verify
+        // Then
         System.assertNotEquals(null, ctrl.getFilterId());
     }
     
@@ -22,7 +22,7 @@ private class ProcessAccountsCtrlExt_Test {
     @IsTest
     private static void setSelectedRecords() {
 
-        // Setup
+        // Given
         Account account = (Account) new Account_t().persist();
         List<Account> accounts = new List<Account>{ account };
         
@@ -30,12 +30,12 @@ private class ProcessAccountsCtrlExt_Test {
         ctrl.setSelected(accounts);
 
 
-        // Exercise
+        // When
         ProcessAccountsCtrlExt ctrlExt = new ProcessAccountsCtrlExt(ctrl);
         List<Id> recordIds = (List<Id>) JSON.deserialize(ctrlExt.recordIds, List<Id>.class);
         
         
-        // Verify
+        // Then
         System.assertEquals(1, recordIds.size());
     }
 }

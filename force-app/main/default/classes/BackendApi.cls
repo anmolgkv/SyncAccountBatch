@@ -20,10 +20,10 @@ public with sharing class BackendApi extends ffhttp_Client.AbstractClient {
 
     public Response process() {
         Response result = (Response) new HttpClientRequest(this, processEndpoint(),
-                                                        ffhttp_Client.REQUEST_METHOD_POST, new Request(),
-                                                        new ffhttp_JsonDeserializer(Response.class))
-                                                        .execute();
-        new SaveSyncResponse(result.message).execute();
+                                                            ffhttp_Client.REQUEST_METHOD_POST, new Request(),
+                                                            new ffhttp_JsonDeserializer(Response.class))
+                                                            .execute();
+        new SaveSyncResponse(result.accounts).execute();
 
         return result;
     }
@@ -82,6 +82,8 @@ public with sharing class BackendApi extends ffhttp_Client.AbstractClient {
         public String status;
         @AuraEnabled
         public String message;
+        @AuraEnabled
+        public List<AccountResponse> accounts;
         
         @SuppressWarnings('PMD.EmptyStatementBlock')
         public Response() {
@@ -92,9 +94,9 @@ public with sharing class BackendApi extends ffhttp_Client.AbstractClient {
             this.status = status;
         }
         
-        public Response(String status, String message) {
+        public Response(String status, List<AccountResponse> accounts) {
             this.status = status;
-            this.message = message;
+            this.accounts = accounts;
         }
 
         public Boolean isSuccess() {

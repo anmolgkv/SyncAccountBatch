@@ -1,8 +1,8 @@
 public with sharing class SaveSyncResponse {
     List<BackendApi.AccountResponse> accounts;
 
-    public SaveSyncResponse(String responseJson) {
-        accounts = (List<BackendApi.AccountResponse>) JSON.deserialize(responseJson, List<BackendApi.AccountResponse>.class);
+    public SaveSyncResponse(List<BackendApi.AccountResponse> accounts) {
+        this.accounts = accounts;
     }
 
     
