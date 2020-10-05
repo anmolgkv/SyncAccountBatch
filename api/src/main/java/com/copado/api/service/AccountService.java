@@ -18,8 +18,8 @@ public class AccountService {
     // CONSTRUCTOR
 
     @Autowired
-    public AccountService(InMemoryAccounts DB) {
-        this.DB = DB;
+    public AccountService(InMemoryAccounts database) {
+        DB = database;
     }
 
 
@@ -30,7 +30,9 @@ public class AccountService {
     }
 
 
-    public void clear(String taskId) { DB.clear(taskId); }
+    public void clear(String taskId) { 
+        DB.clear(taskId); 
+    }
 
 
     public Response process(String taskId) throws JsonProcessingException {
