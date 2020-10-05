@@ -5,12 +5,9 @@ import com.copado.api.model.Account;
 import com.copado.api.model.Request;
 import com.copado.api.model.Response;
 import com.copado.api.service.AccountService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +19,6 @@ import static org.junit.Assert.assertNotEquals;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class AccountCtrl_Test {
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-
 
     @Test
     public void whenNoAccount_thenFail() throws Exception {
@@ -103,6 +95,7 @@ public class AccountCtrl_Test {
 
         controller.addPerson(new Request(orgId, userId, accounts), true);
 
+
         // When
         Response response = controller.process(new Request(orgId, userId));
 
@@ -116,7 +109,7 @@ public class AccountCtrl_Test {
 
 
     @Test
-    public void whenInitFalse_thenUpdate() throws Exception {
+    public void whenInitTrue_thenUpdate() throws Exception {
 
         // Given
         AccountCtrl controller = new AccountCtrl(new AccountService(new InMemoryAccounts()));
@@ -128,6 +121,7 @@ public class AccountCtrl_Test {
         account.setName("Sample Account");
         controller.addPerson(new Request(orgId, userId, Arrays.asList(account)), true);
 
+
         // When
         Response response = controller.process(new Request(orgId, userId));
 
@@ -138,7 +132,7 @@ public class AccountCtrl_Test {
 
 
     @Test
-    public void whenInitIsFalse_thenClearOldAccounts() throws Exception {
+    public void whenInitIsTrue_thenClearOldAccounts() throws Exception {
 
         // Given
         AccountCtrl controller = new AccountCtrl(new AccountService(new InMemoryAccounts()));
@@ -148,6 +142,7 @@ public class AccountCtrl_Test {
         controller.addPerson(new Request(orgId, userId, accounts(10)), true);
         controller.addPerson(new Request(orgId, userId, accounts(15)), true);
 
+        
         // When
         Response response = controller.process(new Request(orgId, userId));
 
@@ -159,11 +154,6 @@ public class AccountCtrl_Test {
 
 
     // Helper
-
-    private String asJson(Object content) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(content);
-    }
-
 
     private List<Account> accounts(int size) {
         return accounts(size, false);
